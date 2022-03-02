@@ -1,14 +1,11 @@
 import React from "react";
-import "./Footer.css";
 
-function Footer() {
+export default function Footer() {
   return (
-    <div className="main-footer">
-          <p className="col-sm">
-            &copy;{new Date().getFullYear()} THIS IS FOOTER
-          </p>
-    </div>
+    <footer className="footer mt-auto py-3">
+      <div className="container">
+        <span className="text-muted">GeekBrains 2022 groups 1294_1187_1186</span>
+      </div>
+    </footer>
   );
 }
-
-export default Footer;
