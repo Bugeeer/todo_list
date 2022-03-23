@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from .filters import TodoFilter
-from .serializers import ProjectSerializer, ToDoSerializer
+from .serializers import ProjectSerializer, ToDoSerializer, ProjectsSerializerBase, ToDoSerializerBase
 from .models import Project, ToDo
 
 
@@ -27,6 +27,11 @@ class ProjectViewSet(ModelViewSet):
         if name:
             queryset = queryset.filter(name__contains=name)
         return queryset
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ProjectSerializer
+        return ProjectsSerializerBase
 
 
 # TODO
@@ -49,3 +54,8 @@ class ToDoViewSet(ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def get_serializer_class(self):
+        if self.request.method in ['GET']:
+            return ToDoSerializer
+        return ToDoSerializerBase
