@@ -17,17 +17,17 @@ class TestProjectViewSet(TestCase):
         self.factory = APIRequestFactory()
         self.client = APIClient()
 
-        self.name = 'admin'
-        self.password = 'admin123456'
-        self.email = 'admin123456@mail.mail'
+        self.name = 'Buger'
+        self.password = '1'
+        self.email = 'caca@mail.ru'
 
         self.admin = User.objects.create_superuser(
             self.name,
             self.email,
             self.password
         )
-        self.url_project = '/api/project/'
-        self.url_todo = '/api/todo/'
+        self.url_project = '/api/projects/'
+        self.url_todo = '/api/todos/'
 
         self.data = {
             'name': 'ProjectTestPost',

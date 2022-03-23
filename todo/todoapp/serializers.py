@@ -38,8 +38,8 @@ class ToDoSerializerBase(ModelSerializer):
         fields = [
             'project',
             'text',
-            'create_at',
-            'update_at',
-            'user',
+            'create',
+            'update',
+            'creator',
             'is_active',
         ]
