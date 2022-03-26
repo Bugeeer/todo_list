@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
+    'drf_yasg',
     'usersapp',
     'corsheaders',
     'todoapp',
@@ -164,5 +165,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-}
 
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+    # 'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.URLPathVersioning',
+    # 'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.NamespaceVersioning',
+
+}
