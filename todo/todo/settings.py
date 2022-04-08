@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'todoapp',
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
+    'graphene_django',
+
 ]
 
 MIDDLEWARE = [
@@ -170,4 +172,7 @@ REST_FRAMEWORK = {
     # 'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.URLPathVersioning',
     # 'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.NamespaceVersioning',
 
+}
+GRAPHENE = {
+    'SCHEMA': 'todo.schema.schema'
 }

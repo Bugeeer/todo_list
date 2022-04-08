@@ -6,11 +6,15 @@ from usersapp.serializers import UserModelSerializer
 
 class ProjectSerializer(ModelSerializer):
     # owner = HyperlinkedIdentityField(view_name='user-detail')
-    users = UserModelSerializer()
+    users = UserModelSerializer(many=True)
 
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = [
+            'name',
+            'url',
+            'users',
+            ]
 
 
 class ProjectsSerializerBase(ModelSerializer):
