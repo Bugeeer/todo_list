@@ -1,40 +1,64 @@
 import React from 'react'
 import {
-    Link
+    HashRouter,
+    Link,
+    Router,
 } from "react-router-dom";
 
-function NavbarItem({name, href}) {
-    return (
-        <li className="nav-item">
-          <Link className="nav-link" to={href}>{name}</Link>
-    )
-}
-
-
-export default function Navbar({navbarItems, auth, logout}) {
-    let login_button = ''
-    if (auth.is_login) {
-    login_button = <button className="btn btn-outline-success my-2 my-sm-0" onClick={logout}>Hello, {auth.username} Logout</button>
+class Navbar extends React.Component {
+    constructor(props) {
+        super(props)
     }
-    else {
-      login_button = <Link to='/login' className="btn btn-outline-success my-2 my-sm-0">Login</Link>
-    }
-    return (
-        <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a className="navbar-brand" href="#">Fixed navbar</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarCollapse">
-                <ul className="navbar-nav mr-auto">
-                  {navbarItems.map((item) => <NavbarItem name={item.name} href={item.href} />)}
-              </ul>
-              <form className="form-inline mt-2 mt-md-0">
-                <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                {login_button}
-              </form>
+
+    render() {
+        return (
+            <div class="row justify-content-md-center">
+                <div class="col-6">
+                    <nav class="navbar navbar-light bg-light">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="/">
+                                DRF To-Do List
+                            </a>
+                            <div class="container login-area" >
+                                <HashRouter>
+                                    {this.props.is_authenticated() ?
+                                        <div className="row">
+                                            <div className="col-sm navbar-brand">{this.props.username}</div>
+                                            <button class="col-sm btn btn-primary" onClick={() => this.props.logout()}>Logout</button>
+                                        </div> :
+                                        <Link class="navbar-brand" to='/login'>Login</Link>
+                                    }
+
+                                </HashRouter>
+                            </div>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"/>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                <div class="navbar-nav">
+                                    <HashRouter>
+                                        <ul>
+                                            <li class="nav-item nav-link" >
+                                                <Link class="nav-link active" to='/'>Projects</Link>
+                                            </li>
+                                            <li class="nav-item nav-link" >
+                                                <Link class="nav-link active" to='/users'>Users</Link>
+                                            </li>
+                                            <li class="nav-item nav-link" >
+                                                <Link class="nav-link active" to='/todos'>Todos</Link>
+                                            </li>
+
+                                        </ul>
+                                    </HashRouter>
+                                </div>
+                            </div>
+
+                        </div>
+                    </nav>
+                </div>
             </div>
-        </nav>
-    )
+        )
+    }
 }
+
+export default Navbar;
