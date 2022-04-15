@@ -1,47 +1,54 @@
 import React from 'react'
 import {
-  Link,
-  useParams
+    Link,
+    useParams
 } from "react-router-dom";
 
 
-const ProjectListItem = ({item}) => {
+const ProjectListItem = ({item, deleteProject}) => {
     let link_to = `/project/${item.id}`
     return (
         <tr>
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>{item.repository}</td>
+            <td>
+                <button className="col-sm btn btn-danger" onClick={() => deleteProject(item.id)}
+                        type="button">Delete</button>
+            </td>
             <td><Link to={link_to}>Detail</Link></td>
         </tr>
     )
 }
 
-const ProjectList = ({items}) => {
+const ProjectList = ({items, deleteProject}) => {
     //console.log(users)
     return (
-        <table className="table">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Repository</th>
-                <th></th>
-            </tr>
-            {items.map((item) => <ProjectListItem item={item} />)}
-        </table>
+        <div>
+            <table className="table">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Repository</th>
+                    <th></th>
+                </tr>
+                {items.map((item) => <ProjectListItem item={item} deleteProject={deleteProject}/>)}
+            </table>
+            <Link class="col-sm btn btn-success" to='/projects/create'>Create</Link>
+        </div>
     )
 }
 
 const ProjectUserItem = ({item}) => {
     return (
         <li>
-        {item.username} ({item.email})
-    </li>
+            {item.username} ({item.email})
+        </li>
     )
 }
 
 const ProjectDetail = ({getProject, item}) => {
-    let { id } = useParams();
+    let {id} = useParams();
     getProject(id)
     let users = item.users ? item.users : []
     console.log(id)
@@ -52,7 +59,7 @@ const ProjectDetail = ({getProject, item}) => {
             <p></p>
             Users:
             <ol>
-            {users.map((user) => <ProjectUserItem item={user} />)}
+                {users.map((user) => <ProjectUserItem item={user}/>)}
             </ol>
         </div>
     )
